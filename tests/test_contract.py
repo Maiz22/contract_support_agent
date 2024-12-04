@@ -9,7 +9,7 @@ def test_contract_all_valid_parameters() -> None:
         creation_date="22-12-2022",
         duration="12",
         duration_unit="m",
-        monthly_cost=19.99,
+        cost_per_unit=19.99,
     )
     assert isinstance(new_contract, Contract)
 
@@ -23,7 +23,7 @@ def test_invalid_creation_date() -> None:
             creation_date="22.12.2022",
             duration="12",
             duration_unit="m",
-            monthly_cost=19.99,
+            cost_per_unit=19.99,
         )
 
 
@@ -34,18 +34,23 @@ def test_invalid_duration_unit() -> None:
             creation_date="22-12-2022",
             duration="12",
             duration_unit="month",
-            monthly_cost=19.99,
+            cost_per_unit=19.99,
         )
 
 
 def test_contract_no_duration_unit() -> None:
-    new_contract = Contract(
-        name="test contract",
-        creation_date="22-12-2022",
-        duration="12",
-        monthly_cost=19.99,
-    )
-    assert isinstance(new_contract, Contract)
+    with pytest.raises(
+        TypeError,
+        match=re.escape(
+            "Contract.__init__() missing 1 required positional argument: 'duration_unit'"
+        ),
+    ):
+        new_contract = Contract(
+            name="test contract",
+            creation_date="22-12-2022",
+            duration="12",
+            cost_per_unit=19.99,
+        )
 
 
 def test_contract_missing_name() -> None:
@@ -58,5 +63,6 @@ def test_contract_missing_name() -> None:
         new_contract = Contract(
             creation_date="22-12-2022",
             duration="12",
-            monthly_cost=19.99,
+            cost_per_unit=19.99,
+            duration_unit="m",
         )

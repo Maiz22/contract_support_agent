@@ -7,14 +7,14 @@ class Contract:
         name: str,
         creation_date: str,
         duration: int,
-        monthly_cost: float,
-        duration_unit: str = "m",
+        cost_per_unit: float,
+        duration_unit: str,
     ) -> None:
         self.name = name
         self.creation_date = creation_date
         self.duration = duration
         self.duration_unit = duration_unit
-        self.monthly_cost = monthly_cost
+        self.cost_per_unit = cost_per_unit
 
     @property
     def creation_date(self) -> str:
@@ -47,3 +47,12 @@ class Contract:
         if unit not in valid_units:
             raise ValueError("Invalid duration unit")
         self._duration_unit = unit
+
+    def __str__(self) -> str:
+        return "\nContract Data:\nName: {}\nCreation Date: {}\nDuration: {}\nDuration Unit{}\nCost Per Unit: {}".format(
+            self.name,
+            self.creation_date,
+            self.duration,
+            self.duration_unit,
+            self.cost_per_unit,
+        )
