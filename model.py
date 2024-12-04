@@ -18,7 +18,7 @@ class User(BaseModel):
         pw1 = self.password1
         pw2 = self.password2
         if len(pw1.strip()) < 1:
-            raise ValueError("please enter a password")
+            raise ValueError("password must at least contain of one letter")
         if pw1 is not None and pw2 is not None and pw1 != pw2:
             raise ValueError("passwords do not match")
         return self
