@@ -12,14 +12,20 @@ class UserJson:
 
     @classmethod
     def create(cls, user: User) -> None:
-        user_json = user.model_dump_json()
+        user_dict = user.model_dump()
+        user_list = [user_dict]
         if not os.path.exists(cls.file):
             with open(cls.file, mode="w") as file:
-                file.write(user_json)
+                json.dump(user_list, file, indent=4)
+                file.close()
                 return
-        with open(cls.file, mode="a") as file:
-            file.write(user_json)
-            return
+        with open(cls.file, mode="r") as file:
+            user_list = json.load(file)
+            file.close()
+        with open(cls.file, mode="w") as file:
+            user_list.append(user.model_dump())
+            json.dump(user_list, file, indent=4)
+            file.close()
 
 
 class ContractJson: ...
