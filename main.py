@@ -1,7 +1,7 @@
 from user_interaction import *
 from model import User
 import sys
-from file_io.user_io import UserJson
+from file_io.model_io import UserJson
 
 
 def parse_argvs(args) -> None:
@@ -18,6 +18,9 @@ if __name__ == "__main__":
         username = enter_username()
         password1, password2 = enter_password_and_validation_password()
         user = User(name=username, password1=password1, password2=password2)
-        user = user.model_dump()
-        UserJson.create(user)
-    print(user)
+        user_dict = user.model_dump()
+        try:
+            UserJson.create(user_dict)
+            print(f"User {user.name} has been added to the JSON")
+        except Exception as err:
+            print(err)

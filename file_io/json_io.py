@@ -31,7 +31,6 @@ class JsonIO(BaseIO):
                     entry_list = [entry]
                 json.dump(entry_list, file, indent=4)
                 file.close()
-                return
         with open(cls.file, mode="r") as file:
             entry_list = json.load(file)
             if not isinstance(entry_list, list):
@@ -43,4 +42,3 @@ class JsonIO(BaseIO):
             entry_list.append(entry)
             json.dump(entry_list, file, indent=4)
             file.close()
-            return

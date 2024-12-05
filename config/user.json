@@ -8,5 +8,15 @@
         "name": "user123",
         "password1": "321",
         "password2": "321"
+    },
+    {
+        "name": "Matthias",
+        "password1": "password",
+        "password2": "password"
+    },
+    {
+        "name": "new_user",
+        "password1": "1234",
+        "password2": "1234"
     }
 ]
