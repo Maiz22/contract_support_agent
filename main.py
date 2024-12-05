@@ -1,6 +1,7 @@
 from user_interaction import *
 from model import User
 import sys
+from file_io import UserJson
 
 
 def parse_argvs(args) -> None:
@@ -16,5 +17,6 @@ if __name__ == "__main__":
     if new_user or last_user is None:
         username = enter_username()
         password1, password2 = enter_password_and_validation_password()
-    user = User(username=username, password1=password1, password2=password2)
+        user = User(name=username, password1=password1, password2=password2)
+        UserJson.create(user)
     print(user)
