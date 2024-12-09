@@ -5,8 +5,9 @@ from datetime import datetime
 
 class User(BaseModel):
     name: str
-    password1: str
-    password2: str
+    contract_ids: list[int] = []
+    # password1: str
+    # password2: str
 
     @field_validator("name")
     def check_username(cls, val) -> None:
@@ -14,15 +15,15 @@ class User(BaseModel):
             raise ValueError("username must contain at leat one letter")
         return val
 
-    @model_validator(mode="after")
-    def check_passwords_match(self) -> "User":
-        pw1 = self.password1
-        pw2 = self.password2
-        if len(pw1.strip()) < 1:
-            raise ValueError("password must at least contain of one letter")
-        if pw1 is not None and pw2 is not None and pw1 != pw2:
-            raise ValueError("passwords do not match")
-        return self
+    # @model_validator(mode="after")
+    # def check_passwords_match(self) -> "User":
+    #    pw1 = self.password1
+    #    pw2 = self.password2
+    #    if len(pw1.strip()) < 1:
+    #        raise ValueError("password must at least contain of one letter")
+    #    if pw1 is not None and pw2 is not None and pw1 != pw2:
+    #        raise ValueError("passwords do not match")
+    #    return self
 
 
 class Contract(BaseModel):

@@ -16,9 +16,10 @@ if __name__ == "__main__":
     last_user = None
     if new_user or last_user is None:
         username = enter_username()
-        password1, password2 = enter_password_and_validation_password()
-        user = User(name=username, password1=password1, password2=password2)
+        user = User(name=username)
+        print(user.model_json_schema())
         user_dict = user.model_dump()
+        print(user_dict)
         try:
             UserJson.create(user_dict)
             print(f"User {user.name} has been added to the JSON")

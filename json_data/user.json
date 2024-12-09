@@ -1,7 +1,6 @@
 [
     {
-        "name": "scolvin",
-        "password1": "zxcvbn",
-        "password2": "zxcvbn"
+        "name": "test",
+        "contract_ids": []
     }
 ]
