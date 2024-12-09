@@ -1,5 +1,3 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
 import os
 import json
 from file_io.base_io import BaseIO
@@ -59,3 +57,34 @@ class JsonIO(BaseIO):
             json.dump(entry_list, file, indent=4)
             file.close()
             return
+
+    @classmethod
+    def read(cls, key: str, val: str):
+        pass
+
+    @classmethod
+    def update(cls, element: dict):
+        pass
+
+    @classmethod
+    def delete(cls, key: str, val: str) -> None:
+        """
+        Takes a key and a val to delete an element with a specific
+        val for the given key.
+        """
+        val_exists = False
+        with open(cls.file, mode="r") as file:
+            entry_list = json.load(file)
+            for i, entry in enumerate(entry_list):
+                if entry[key] == val:
+                    entry_list.pop(i)
+                    val_exists = True
+                    break
+            file.close()
+        if not val_exists:
+            raise ValueError("Unaible to delete value that does not exist in DB")
+        else:
+            with open(cls.file, "w") as file:
+                json.dump(entry_list, file, indent=4)
+                file.close()
+                return

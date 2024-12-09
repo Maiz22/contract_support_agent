@@ -3,7 +3,7 @@ from pydantic import ValidationError
 from model import Contract, User
 
 
-def test_user_all_fields_correct() -> None:
+def test_create_user() -> None:
     User(name="scolvin", password1="zxcvbn", password2="zxcvbn")
 
 
@@ -47,7 +47,3 @@ def test_end_date_smaller_effective_date() -> None:
             renewal_state=True,
             user=user,
         )
-
-
-def test_user_model():
-    User(name="scolvin", password1="zxcvbn", password2="zxcvbn")
