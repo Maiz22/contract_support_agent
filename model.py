@@ -5,15 +5,15 @@ from datetime import datetime
 
 class User(BaseModel):
     name: str
-    contract_ids: list[int] = []
-    # password1: str
-    # password2: str
 
     @field_validator("name")
     def check_username(cls, val) -> None:
         if len(val.strip()) < 1:
             raise ValueError("username must contain at leat one letter")
         return val
+
+    # password1: str
+    # password2: str
 
     # @model_validator(mode="after")
     # def check_passwords_match(self) -> "User":

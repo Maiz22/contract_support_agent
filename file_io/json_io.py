@@ -44,7 +44,9 @@ class JsonIO(BaseIO):
                 for key in cls.unique_keys:
                     for element in entry_list:
                         if element[key] == entry[key]:
-                            raise ValueError("Unique key already exists in JSON")
+                            raise ValueError(
+                                f"{key.capitalize()} {element[key]} already exists in JSON"
+                            )
             if not isinstance(entry_list, list):
                 raise TypeError("Parsed JSON should be of type list")
             file.close()

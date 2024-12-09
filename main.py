@@ -4,24 +4,69 @@ import sys
 from file_io.model_io import UserJson
 
 
-def parse_argvs(args) -> None:
-    new_user = False
-    if args[0] == "new":
-        new_user = True
-    return new_user
+def determine_user_action(args) -> None | User:
+    """
+    Takes the command line args an determines the user action
+    depending on them.
+    Returns the user or None.
+    """
+    user = None
+    if args[1].lower() == "--create":
+        user = create_user(username=args[2])
+    elif args[1].lower() == "--delete":
+        delete_user(args[2])
+    elif args[1].lower() == "--help":
+        print_help()
+    else:
+        user = get_user(args[1])
+    return user
+
+
+def create_user(username: str) -> None:
+    """
+    Takes a username, creates a User instance parses it to a
+    dict like string and saves the user in the UserJson.
+    """
+    user = User(name=username)
+    user_dict = user.model_dump()
+    try:
+        UserJson.create(user_dict)
+        print(f"User {user.name} has been added to the JSON")
+        return user
+    except Exception as err:
+        print(err)
+
+
+def delete_user(username: str) -> None:
+    """
+    Takes a username and removes the user from UserJson, if
+    it exists.
+    """
+    try:
+        UserJson.delete(key="name", val=username)
+        print(f"User {username} has been deleted from JSON")
+    except ValueError:
+        print(f"User {username} does not exists in DB.")
+
+
+def get_user(username: str) -> None:
+    pass
+
+
+def print_help() -> None:
+    print(
+        """
+
+    Valid Commands:
+
+    --create <username> : create user with name <username>
+    --delete <username> : delete user with name <username>
+    <username> : login user <username>
+
+    """
+    )
 
 
 if __name__ == "__main__":
-    new_user = parse_argvs(sys.argv)
-    last_user = None
-    if new_user or last_user is None:
-        username = enter_username()
-        user = User(name=username)
-        print(user.model_json_schema())
-        user_dict = user.model_dump()
-        print(user_dict)
-        try:
-            UserJson.create(user_dict)
-            print(f"User {user.name} has been added to the JSON")
-        except Exception as err:
-            print(err)
+    user = determine_user_action(sys.argv)
+    print(user)
