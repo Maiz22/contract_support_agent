@@ -1,9 +1,29 @@
 [
     {
-        "name": "test",
-        "contract_ids": []
+        "name": "username"
     },
     {
-        "name": "Matthias"
+        "name": "another_user"
+    },
+    {
+        "name": "new_user"
+    },
+    {
+        "name": "new_user1"
+    },
+    {
+        "name": "new_user2"
+    },
+    {
+        "name": "new_user3"
+    },
+    {
+        "name": "new_user4"
+    },
+    {
+        "name": "new_user6"
+    },
+    {
+        "name": "1234"
     }
 ]
